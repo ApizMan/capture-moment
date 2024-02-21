@@ -23,6 +23,7 @@ class VideoScreenBody extends StatefulWidget {
 }
 
 class _PhotoScreenBodyState extends State<VideoScreenBody> {
+  final double _ratioAspect = 1.8;
   late CameraController controller;
   bool isCapturing = false;
   bool isRecording = false;
@@ -95,7 +96,15 @@ class _PhotoScreenBodyState extends State<VideoScreenBody> {
                       color: kWhite,
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                QRScanner(camera: widget.cameras.first),
+                          ),
+                        );
+                      },
                       icon: const Icon(Icons.qr_code_scanner),
                       color: kWhite,
                     ),
@@ -108,7 +117,7 @@ class _PhotoScreenBodyState extends State<VideoScreenBody> {
               top: 50,
               bottom: _isFrontCamera == false ? 0 : 150,
               child: AspectRatio(
-                aspectRatio: controller.value.aspectRatio,
+                aspectRatio: _ratioAspect,
                 child: GestureDetector(
                   onTapDown: (TapDownDetails details) {
                     final Offset tapPosition = details.localPosition;
@@ -246,7 +255,15 @@ class _PhotoScreenBodyState extends State<VideoScreenBody> {
                               Expanded(
                                 child: Center(
                                   child: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ProModeScreen(
+                                              cameras: widget.cameras),
+                                        ),
+                                      );
+                                    },
                                     child: Text(
                                       "Pro Mode",
                                       style: CustomTheme.normalTextStyle(

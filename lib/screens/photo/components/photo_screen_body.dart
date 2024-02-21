@@ -28,6 +28,8 @@ class _PhotoScreenBodyState extends State<PhotoScreenBody> {
   late CameraController controller;
   bool isCapturing = false;
 
+  final double _ratioAspect = 1.8;
+
   // For switching Camera
   int _selectedCameraIndex = 0;
   bool _isFrontCamera = false;
@@ -68,6 +70,11 @@ class _PhotoScreenBodyState extends State<PhotoScreenBody> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
+        // if (constraints.) {
+        //   // Handle the case where controller or cameras are null
+        //   return const SizedBox(); // Or any appropriate placeholder widget
+        // }
+
         return Stack(
           children: [
             // Top Navigation Camera
@@ -117,7 +124,7 @@ class _PhotoScreenBodyState extends State<PhotoScreenBody> {
               top: 50,
               bottom: _isFrontCamera == false ? 0 : 150,
               child: AspectRatio(
-                aspectRatio: controller.value.aspectRatio,
+                aspectRatio: _ratioAspect,
                 child: GestureDetector(
                   onTapDown: (TapDownDetails details) {
                     final Offset tapPosition = details.localPosition;
@@ -244,21 +251,26 @@ class _PhotoScreenBodyState extends State<PhotoScreenBody> {
                               ),
                               Expanded(
                                 child: Center(
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: Text(
-                                      "Photo",
-                                      style: CustomTheme.normalTextStyle(
-                                          color: kPrimaryAccentColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                  child: Text(
+                                    "Photo",
+                                    style: CustomTheme.normalTextStyle(
+                                        color: kPrimaryAccentColor,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
                               Expanded(
                                 child: Center(
                                   child: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ProModeScreen(
+                                              cameras: widget.cameras),
+                                        ),
+                                      );
+                                    },
                                     child: Text(
                                       "Pro Mode",
                                       style: CustomTheme.normalTextStyle(

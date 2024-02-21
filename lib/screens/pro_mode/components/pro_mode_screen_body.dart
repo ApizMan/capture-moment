@@ -26,6 +26,7 @@ class ProModeScreenBody extends StatefulWidget {
 }
 
 class _PhotoScreenBodyState extends State<ProModeScreenBody> {
+  final double _ratioAspect = 1.8;
   late CameraController controller;
   bool isCapturing = false;
 
@@ -123,7 +124,7 @@ class _PhotoScreenBodyState extends State<ProModeScreenBody> {
               top: 50,
               bottom: _isFrontCamera == false ? 0 : 150,
               child: AspectRatio(
-                aspectRatio: controller.value.aspectRatio,
+                aspectRatio: _ratioAspect,
                 child: GestureDetector(
                   onTapDown: (TapDownDetails details) {
                     final Offset tapPosition = details.localPosition;
@@ -251,11 +252,19 @@ class _PhotoScreenBodyState extends State<ProModeScreenBody> {
                               Expanded(
                                 child: Center(
                                   child: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PhotoScreen(
+                                              cameras: widget.cameras),
+                                        ),
+                                      );
+                                    },
                                     child: Text(
                                       "Photo",
                                       style: CustomTheme.normalTextStyle(
-                                          color: kPrimaryAccentColor,
+                                          color: kWhite,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -263,14 +272,11 @@ class _PhotoScreenBodyState extends State<ProModeScreenBody> {
                               ),
                               Expanded(
                                 child: Center(
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: Text(
-                                      "Pro Mode",
-                                      style: CustomTheme.normalTextStyle(
-                                          color: kWhite,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                  child: Text(
+                                    "Pro Mode",
+                                    style: CustomTheme.normalTextStyle(
+                                        color: kPrimaryAccentColor,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
@@ -352,7 +358,7 @@ class _PhotoScreenBodyState extends State<ProModeScreenBody> {
             ),
 
             Positioned(
-              bottom: 150.0,
+              top: 50,
               left: 0.0,
               right: 0.0,
               child: FlutterSlider(

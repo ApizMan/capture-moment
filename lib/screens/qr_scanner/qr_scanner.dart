@@ -49,7 +49,6 @@ class _QRScannerState extends State<QRScanner> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(context),
         body: Column(
           children: [
             Expanded(
@@ -59,7 +58,7 @@ class _QRScannerState extends State<QRScanner> {
                       onQRViewCreated: _onQRViewCreated,
                       overlay: QrScannerOverlayShape(
                         borderRadius: 10.0,
-                        borderColor: kWhite,
+                        borderColor: kPrimaryColor,
                         borderLength: 30.0,
                         borderWidth: 10.0,
                         cutOutSize: 300,
@@ -69,14 +68,85 @@ class _QRScannerState extends State<QRScanner> {
             ),
           ],
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                width: double.infinity,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: kBlack.withOpacity(0.5),
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    )
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.history,
+                        color: kWhite,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.batch_prediction_rounded,
+                        color: kWhite,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.flash_on,
+                        color: kWhite,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                width: double.infinity,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: kBlack.withOpacity(0.5),
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    )
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Future<void> _requestCameraPermission() async {
     final status = await Permission.camera.request();
-    setState(() {
-    });
+    setState(() {});
 
     if (status.isGranted) {
       _initializeCamera();
@@ -149,17 +219,5 @@ class _QRScannerState extends State<QRScanner> {
     // Replace this with your own QR code decoding implementation
 
     return null;
-  }
-
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      backgroundColor: kBlack,
-      centerTitle: true,
-      title: const Text("QR Scanner"),
-      actions: const [
-        Text(""),
-      ],
-      leading: const Text(""),
-    );
   }
 }
